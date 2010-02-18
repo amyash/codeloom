@@ -1,0 +1,60 @@
+<?php
+// $id$
+
+/**
+ * @file
+ * Exposes a load of front page blocks for codeloom.net
+ */
+
+/**
+*Implementation of hook_block
+*/
+
+function cl_fpb_block($op = 'list', $delta = 0, $edit = array()) {
+  switch($op) {
+    case 'list':
+      $block = array();
+      $block[0]['info'] = t('Big intro block');
+      $block[1]['info'] = t('First small block');
+      $block[2]['info'] = t('Second small block');
+      $block[3]['info'] = t('Third small block');
+      return $block;
+      break;
+    case 'view':
+      return _cl_fpb_block_view_defs($delta); // $block = array('subject' => 'all the subject stuff', 'content' => 'all the content stuff');
+      break;
+  }
+}
+
+function _cl_fpb_block_view_defs($delta) {
+  $block['content'] = _cl_fpb_get_file($delta);
+  switch ($delta) {
+    case 0:
+      // This is the big block in the intro region
+      $block['subject'] = 'Big intro block';
+      // $block['content'] = _cl_fpb_get_file($delta);
+      break;
+    case 1:
+      // The first of three small blocks
+      $block['subject'] = 'First small block';
+      // $block['content'] = 'Stuff stuff stuff';
+      break;
+    case 2:
+      // The second of three small blocks
+      $block['subject'] = 'Second small block';
+      // $block['content'] = 'Stuff stuff stuff';
+      break;
+    case 3:
+      //The third of three small blocks
+      $block['subject'] = 'Third small block';
+      // $block['content'] = 'Stuff stuff stuff';
+      break;
+  }
+  return $block;
+}
+
+function _cl_fpb_get_file($delta) {
+  global $theme;
+  $theme_path = drupal_get_path('theme', $theme);
+  return file_get_contents($theme_path . '/cl_fpb/cl_fpb' . $delta . '.html');
+}

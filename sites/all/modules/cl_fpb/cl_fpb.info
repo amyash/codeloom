@@ -1,0 +1,5 @@
+; $Id$
+name = Codeloom Front Page Blocks
+description = Generates blocks for the front page of codeloom.net
+package = Codeloom custom
+core = 6.x
